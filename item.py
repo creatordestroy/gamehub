@@ -5,6 +5,7 @@ class Item(object):
         self.sku = sku
         self.cost = cost
         self.stock = stock
+        self.order_quantity = 0
 
     def updateCost(self, new_cost: float) -> None:
 
@@ -15,11 +16,18 @@ class Item(object):
         self.stock += 1
 
     def decrementStock(self) -> None:
+        
         self.stock -= 1
 
     def getStock(self) -> int:
 
         return self.stock
+        
+    def updateQuantity(self, quantity) -> None:
+
+        self.order_quantity = quantity
+
+    
 
 
 
