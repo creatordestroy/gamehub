@@ -89,6 +89,11 @@ class Inventory(object):
             inventory.write(new_data)
             inventory.close()
 
+    """
+    Description: Checks for an existing data.json file, if the file is not found, creates data.json
+    Parameters: File name -> String
+    Return Value: None
+    """
     def check_for_db(self, name: str) -> None:
         if os.path.exists(name):
             print("Data.json exists already")
