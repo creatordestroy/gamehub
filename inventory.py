@@ -90,6 +90,21 @@ class Inventory(object):
             inventory.close()
 
     """
+    Description: Searches for a product in JSON database by SKU
+    Parameters: SKU -> string representing SKU of product
+    Return Value: None
+    """
+    def searchItem(self, sku: str) -> None:
+
+        with open("data.json", 'r') as inventory:
+            inv_info = inventory.read()
+            inv_data = json.loads(inv_info)
+            inventory.close()
+
+        print(inv_data[sku])
+
+
+    """
     Description: Checks for an existing data.json file, if the file is not found, creates data.json
     Parameters: File name -> String
     Return Value: None

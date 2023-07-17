@@ -10,13 +10,14 @@ def main():
 
 
     empty_item = Item("NES", "1007", 199.99, 0)
-    product_orderform = OrderForm()
-    product_orderform.add_to_order(empty_item, 6)
+    #product_orderform = OrderForm()
+    #product_orderform.add_to_order(empty_item, 6)
     #product_orderform.clear_order()
 
 
 
     product_inventory = Inventory("data.json")
+    product_inventory.searchItem("1000")
     #product_inventory.clearInventory()
     #product_inventory.populateInventory()
     #product_inventory.addItem(new_item)
