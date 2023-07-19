@@ -46,9 +46,9 @@ flask run
 ```
 
 ### Step Five - Testing
-Open [http://127.0.0.1:8080](http://127.0.0.1:8080) on a browser or open a new terminal and test the API using curl.
+Open [http://127.0.0.1:5000](http://127.0.0.1:5000) on a browser or open a new terminal and test the API using curl.
 ```
-curl http://127.0.0.1:8080
+curl http://127.0.0.1:5000
 ```
 In both instances you should receive a JSON response.
 ```json
