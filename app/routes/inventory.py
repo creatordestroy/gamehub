@@ -19,3 +19,5 @@ def update_inventory(inventory_id):
     data = request.get_json()
     inventory = InventoryService().update_inventory(inventory_id, data['count'])
     return jsonify(inventory), 200
+
+
