@@ -1,6 +1,5 @@
 from peewee import *
 from app.database import db
-import sqlalchemy
 
 class Inventory(db.Model):
 
@@ -13,3 +12,4 @@ class Inventory(db.Model):
 
     class Meta:
         database = db
+        table_name = 'Inventory'

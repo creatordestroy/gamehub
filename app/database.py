@@ -1,12 +1,14 @@
 from peewee import MySQLDatabase
 from playhouse.pool import PooledMySQLDatabase
-import config
+from app.config import Config
+
+config = Config()
 
 db = PooledMySQLDatabase(
-    config.DB_NAME,
-    user=config.DB_USER,
-    password=config.DB_PASSWORD,
-    host=config.DB_HOST,
-    port=config.DB_PORT,
-    max_connections=20,  # maximum number of connections in the pool
+    config.DATABASE['DB_NAME'],
+    user=config.DATABASE['DB_USER'],
+    password=config.DATABASE['DB_PASSWORD'],
+    host=config.DATABASE['DB_HOST'],
+    port=config.DATABASE['DB_PORT'],
+    max_connections=20  # maximum number of connections in the pool
 )

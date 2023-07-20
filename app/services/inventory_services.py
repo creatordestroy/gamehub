@@ -15,19 +15,24 @@ class InventoryService:
             inventory.product_stock -= quantity
         inventory.save()
 
-    def get_inventory(inventory_id):
-        return Inventory.get(Inventory.id == inventory_id)
+    def get_all_products():
+        return
 
     def get_test_product():
         try:
             product = Inventory.select().first()
 
             if product:
-                product_data = {'product_id' : product.product_id, 'name' : product.product_name, 'cost' : product.product_cost, 'stock' : product.product_stock}
-                return jsonify({'message' : 'Sucessfully retrieved inventory', 'product_data' : product_data}) , 200
+                product_data = {
+                    'product_id': product.product_id,
+                    'name': product.product_name,
+                    'cost': str(product.product_cost),
+                    'stock': product.product_stock
+                }
+                return {'message': 'Successfully retrieved test product', 'product_data': product_data}, 200
+            else:
+                return {'message': 'No products found in the inventory'}, 404
 
         except Exception as e:
-            return jsonify({'err': str(e)}), 500
+            return {'error': str(e)}, 500
         
-    def get_low_stock_inventories(threshold):
-        return Inventory.select().where(Inventory.quantity <= threshold)

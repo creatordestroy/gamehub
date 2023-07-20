@@ -22,6 +22,5 @@ def update_inventory(inventory_id):
 
 @bp.route('/inventory/all', methods=['GET'])
 def get_all_products():
-    inventory = InventoryService.get_test_products()
-    return jsonify(inventory), 200
-
+    inventory_data, status_code = InventoryService.get_test_product()
+    return jsonify(inventory_data), status_code
