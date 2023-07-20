@@ -18,7 +18,7 @@ class InventoryService:
     def get_inventory(inventory_id):
         return Inventory.get(Inventory.id == inventory_id)
 
-    def get_all_products():
+    def get_test_product():
         try:
             product = Inventory.select().first()
 
