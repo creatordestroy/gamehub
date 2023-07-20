@@ -46,10 +46,16 @@ flask run
 ```
 
 ### Step Five - Testing
+Open [http://127.0.0.1:5000](http://127.0.0.1:5000) on a browser or open a new terminal and test the API using curl.
 ```
-Requires attention
+curl http://127.0.0.1:5000
+```
+In both instances you should receive a JSON response.
+```json
+{"hello": "world"}
 ```
 
+<img src='/assets/localhost_test_screenshot.png?raw=true' title='Default Route Test' width='500' alt='Default Route Test' />
 
 ## Features
 
