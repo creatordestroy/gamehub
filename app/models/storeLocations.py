@@ -3,11 +3,10 @@ from app.database import db
 
 class StoreLocations(db.Model):
 
-    __tablename__ = 'StoreLocations'
-    store_id = db.Column(db.Integer, primaryKey = True)
-    location_name = db.Column(db.varchar(255), nullable = False)
-    location_address = db.Column(db.varchar(255), nullable = False)
+    #__tablename__ = 'StoreLocations'
+    store_id = PrimaryKeyField()
+    location_name = CharField(max_length=255)
+    location_address = CharField(max_length=255)
     
-
     class Meta:
         database = db

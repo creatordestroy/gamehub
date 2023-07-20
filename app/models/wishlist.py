@@ -6,10 +6,10 @@ from app.database import db
 class WishList(db.Model):
     
     __tablename__ = 'Wishlist'
-    wishlist_id = db.Column(db.Integer, primaryKey = True)
-    user_id = db.Column(db.Integer, db.ForeignKey(User.user_id))
-    product_id = db.Column(db.Integer, db.ForeignKey(Inventory.product_id))
-    date_added = db.Column(db.Date, nullable = False)
+    wishlist_id = PrimaryKeyField()
+    user_id = ForeignKeyField(User, backref='Wishlist')
+    product_id = ForeignKeyField(Inventory, backref='Wishlist')
+    date_added = DateField()
 
     class Meta:
         database = db
