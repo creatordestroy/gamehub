@@ -9,7 +9,6 @@ def create_app():
     # Register blueprints
 
     app.register_blueprint(inventory.bp)
-    app.register_blueprint(user.bp)
 
     # Default route
     @app.route("/")

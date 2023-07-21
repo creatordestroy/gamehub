@@ -9,7 +9,6 @@ class Inventory(db.Model):
     product_cost = DecimalField(decimal_places=2)
     product_stock = IntegerField()
     
-
     class Meta:
         database = db
         table_name = 'Inventory'
