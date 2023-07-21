@@ -8,3 +8,4 @@ def get_all_product_reviews():
     reviews_data, status_code = ReviewService.get_all_product_reviews()
     return jsonify(reviews_data), status_code
     
+
