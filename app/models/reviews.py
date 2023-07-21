@@ -14,3 +14,4 @@ class Reviews(db.Model):
 
     class Meta:
         database = db
+        table_name = 'Reviews'
