@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 #from app.middlewares import JSONContentTypeMiddleware
 from app.database import db
-from app.routes import inventory, user
+from app.routes import inventory, reviews
 
 def create_app():
     app = Flask(__name__)
@@ -9,6 +9,7 @@ def create_app():
     # Register blueprints
 
     app.register_blueprint(inventory.bp)
+    app.register_blueprint(reviews.bp)
 
     # Default route
     @app.route("/")
