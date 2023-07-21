@@ -24,17 +24,15 @@ class ReviewService:
     def get_product_review_by_id(product_id):
         
         try:
-            product_review = Reviews.select(Inventory.product_id == product_id)
+            product_reviews = Reviews.select().where(Reviews.product_id == product_id)
 
-            if product_review:
+            if product_reviews:
                 
-                reviews_data = {
-                                'product_id' : Inventory.product_id,
-                                'name' : Inventory.product_name,
-                                'rating' : Reviews.product_rating,
-                                'review' : Reviews.product_review,
-                                'date' : Reviews.review_date
-                }
+                reviews_data = [{
+                    'rating' : review.product_rating,
+                    'comment' : review.product_review
+                } for review in product_reviews]
+                #reviews_data = [review.product_review for review in product_reviews]
 
                 return {'message': 'Successfully retrieved product reviews', 'product_data': reviews_data}, 200
             else:
