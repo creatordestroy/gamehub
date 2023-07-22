@@ -7,7 +7,7 @@ class Returns(db.Model):
 
     return_id = PrimaryKeyField()
     store_id = ForeignKeyField(StoreLocation, backref="Returns")
-    user_id = ForeignKeyField(Product, backref="Returns")
+    product_id = ForeignKeyField(Product, backref="Returns")
     return_date = DateField()
     return_reason = CharField()
 

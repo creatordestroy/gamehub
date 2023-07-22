@@ -9,7 +9,7 @@ class Sales(db.Model):
     product_id = ForeignKeyField(Inventory, backref="Sales")
     store_id = ForeignKeyField(StoreLocation, backref="Sales")
     sale_date = DateField()
-    sale_quantity = IntegerField()
+    quantity_sold = IntegerField()
 
     class Meta:
         database = db
