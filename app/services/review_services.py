@@ -36,7 +36,28 @@ class ReviewService:
 
                 return {'message': 'Successfully retrieved product reviews', 'product_data': reviews_data}, 200
             else:
-                return {'message': 'No product found in the inventory'}, 404
+                return {'message': 'No product reviews found in the inventory'}, 404
+
+        except Exception as e:
+            return {'error': str(e)}, 500
+
+    def get_product_reviews_by_product_name(product_name):
+
+        try:
+            product_id = Inventory.get(Inventory.product_name == product_name).product_id
+            product_reviews = Reviews.select().where(Reviews.product_id == product_id)
+
+            if product_reviews:
+
+                reviews_data = [{
+                    'name' : product_name,
+                    'rating' : review.product_rating,
+                    'review' : review.product_review
+                } for review in product_reviews]
+
+                return {'message' : 'Successfully retrieved product reviews by name', 'product_data' : reviews_data}, 200
+            else:
+                return {'message' : 'No product reviews found for product name'}, 404
 
         except Exception as e:
             return {'error': str(e)}, 500

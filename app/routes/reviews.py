@@ -13,4 +13,11 @@ def get_product_review_by_id(product_id):
     reviews_data, status_code = ReviewService.get_product_review_by_id(product_id)
     return jsonify(reviews_data), status_code
     
+@bp.route('/reviews', methods=['GET'])
+def get_product_review_by_name():
+    product_name = request.args.get('name')
+    print(product_name)
+    if product_name:
+        reviews_data, status_code = ReviewService.get_product_reviews_by_product_name(product_name)
+    return jsonify(reviews_data), status_code
 
