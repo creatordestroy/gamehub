@@ -1,4 +1,4 @@
-from app.models.inventory import Inventory
+from app.models.product import Product
 from app.models.user import User
 from app.models.reviews import Reviews
 from flask import jsonify
@@ -22,7 +22,7 @@ class ReviewService:
         except Exception as e:
             return {'error': str(e)}, 500
 
-    def get_product_review_by_id(product_id):
+    def get_product_reviews_by_id(product_id):
         
         try:
             product_reviews = Reviews.select().where(Reviews.product_id == product_id)
@@ -45,7 +45,7 @@ class ReviewService:
     def get_product_reviews_by_product_name(product_name):
 
         try:
-            product_id = Inventory.get(Inventory.product_name == product_name).product_id
+            product_id = Product.get(Product.product_name == product_name).product_id
             product_reviews = Reviews.select().where(Reviews.product_id == product_id)
 
             if product_reviews:
@@ -63,21 +63,20 @@ class ReviewService:
         except Exception as e:
             return {'error': str(e)}, 500
 
-    def get_reviews_by_user_id(user_id):
+    def get_product_reviews_by_user_id(user_id):
 
         try:
-            user_reviews = (User
-                            .select(User.User_name, Reviews.rating, Reviews.comment)
-                            .join(Reviews, JOIN.INNER)
-                            .where(User.User_id == user_id))
+            user_name = User.get(User.user_id == user_id).user_name
+            user_reviews = Reviews.select().where(Reviews.user_id == user_id)
+
             if user_reviews:
-        
-        # Create a list of dictionaries containing the User name, rating, and comment for each review
-                result = [{
-                    'User_name': review.User.User_name,
-                    'rating': review.rating,
-                    'comment': review.comment
-                } for review in user_reviews]
+
+                reviews_data = [{
+                    'username' : user_name,
+                    'rating' : review.product_rating,
+                    'review' : review.product_review,
+                    'date' : review.review_date
+                }for review in user_reviews]
 
                 return {'message' : 'Successfully retrieved product reviews by name', 'product_data' : reviews_data}, 200
             else:
