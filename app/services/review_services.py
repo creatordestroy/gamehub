@@ -3,6 +3,7 @@ from app.models.user import User
 from app.models.reviews import Reviews
 from flask import jsonify
 from app.database import db
+from peewee import JOIN
 
 class ReviewService:
 
@@ -61,3 +62,27 @@ class ReviewService:
 
         except Exception as e:
             return {'error': str(e)}, 500
+
+    def get_reviews_by_user_id(user_id):
+
+        try:
+            user_reviews = (User
+                            .select(User.User_name, Reviews.rating, Reviews.comment)
+                            .join(Reviews, JOIN.INNER)
+                            .where(User.User_id == user_id))
+            if user_reviews:
+        
+        # Create a list of dictionaries containing the User name, rating, and comment for each review
+                result = [{
+                    'User_name': review.User.User_name,
+                    'rating': review.rating,
+                    'comment': review.comment
+                } for review in user_reviews]
+
+                return {'message' : 'Successfully retrieved product reviews by name', 'product_data' : reviews_data}, 200
+            else:
+                return {'message' : 'No product reviews found for product name'}, 404
+
+        except Exception as e:
+            return {'error': str(e)}, 500
+
