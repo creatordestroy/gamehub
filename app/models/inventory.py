@@ -1,12 +1,13 @@
 from peewee import *
 from app.database import db
+from app.models.storeLocation import StoreLocation
+from app.models.product import Product
 
 class Inventory(db.Model):
 
-    #__tablename__ = 'Inventory'
-    product_id = PrimaryKeyField()
-    product_name = CharField(max_length=255)
-    product_cost = DecimalField(decimal_places=2)
+    inventory_id = PrimaryKeyField()
+    store_id = ForeignKeyField(StoreLocation, backref='Inventory')
+    product_id = ForeignKeyField(Product, backref='Inventory')
     product_stock = IntegerField()
     
     class Meta:
