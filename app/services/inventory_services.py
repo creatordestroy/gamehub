@@ -1,4 +1,5 @@
 from app.models.inventory import Inventory
+from app.models.product import Product
 from flask import jsonify
 from app.database import db
 
@@ -15,21 +16,25 @@ class InventoryService:
             inventory.product_stock -= quantity
         inventory.save()
 
-    def get_test_product():
+    def product_search_by_name(product_name):
         try:
-            product = Inventory.select().first()
+            product_id = Product.get(Product.product_name == product_name).product_id
+            product_status = Inventory.select().where(Inventory.product_id == product_id)
 
-            if product:
-                product_data = {
-                    'product_id': product.product_id,
-                    'name': product.product_name,
-                    'cost': str(product.product_cost),
-                    'stock': product.product_stock
-                }
-                return {'message': 'Successfully retrieved test product', 'product_data': product_data}, 200
+            if product_status:
+                product_details = [info.__data__ for info in product_status]
+
+                return product_details, 200
             else:
-                return {'message': 'No products found in the inventory'}, 404
-
+                return {'message' : 'No product found'}, 404
+            
         except Exception as e:
             return {'error': str(e)}, 500
+        
+    def product_search_by_id():
+        pass
+
+    def product_search_by_id_in_store():
+        pass
+        
         

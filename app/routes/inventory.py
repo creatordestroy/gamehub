@@ -1,5 +1,5 @@
 # inventory.py
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from app.services.inventory_services import InventoryService
 
 bp = Blueprint('inventory', __name__)
@@ -25,7 +25,11 @@ def get_all_products():
     inventory_data, status_code = InventoryService.get_test_product()
     return jsonify(inventory_data), status_code
 
-@bp.route('/inventory/ratings/all', methods=['GET'])
-def get_all_product_ratings():
-    inventory_data, status_code = InventoryService.get_all_product_ratings()
-    return jsonify(inventory_data), status_code
+@bp.route('/inventory/search', methods=['GET'])
+def search_product_by_name():
+    product_name = request.args.get('name')
+    if product_name:
+        json_list, status_code = InventoryService.product_search_by_name(product_name)
+        print(json_list)
+    #return jsonify(json_list), status_code
+    return render_template('table_template.html', json_list=json_list), status_code
