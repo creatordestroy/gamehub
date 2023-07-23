@@ -44,7 +44,16 @@ def search_product_by_id(product_id):
 
     return render_template('table_template.html', json_list=json_list), status_code
 
-@bp.route('/inventory/search/store/<int:product_id>+<int:store_id>', methods=['GET'])
+@bp.route('/inventory/search/store/<string:store_id>', methods=['GET'])
+def search_product_by_store_id(store_id):
+
+    if store_id:
+        json_list, status_code = InventoryService.product_search_by_store_id(store_id)
+        print(json_list)
+
+    return render_template('table_template.html', json_list=json_list), status_code
+
+@bp.route('/inventory/search/storeid/<int:product_id>+<int:store_id>', methods=['GET'])
 def search_product_by_id_in_store(product_id, store_id):
 
     if product_id and store_id:

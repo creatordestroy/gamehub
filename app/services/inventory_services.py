@@ -52,6 +52,20 @@ class InventoryService:
                 return {'message' : 'No product found'}, 404
         except Exception as e:
             return {'error' : str(e)}, 500
+        
+    def product_search_by_store_id(store_id):
+        try:
+            product_list = Inventory.select().where(Inventory.store_id == store_id)
+
+            if product_list:
+
+                product_details = [product.__data__ for product in product_list]
+
+                return product_details, 200
+            else:
+                return [{'message' : 'No product found in store'}], 404
+        except Exception as e:
+            return {'error' : str(e)}, 500
 
 
 
