@@ -8,7 +8,7 @@ class Inventory(db.Model):
     inventory_id = PrimaryKeyField()
     store_id = ForeignKeyField(StoreLocation, backref='Inventory')
     product_id = ForeignKeyField(Product, backref='Inventory')
-    product_stock = IntegerField()
+    product_quantity = IntegerField()
     
     class Meta:
         database = db
