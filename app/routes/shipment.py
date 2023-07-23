@@ -17,3 +17,8 @@ def add_shipment():
     all_products = ProductService().get_product_list()
     all_store_locations = StoreLocationService().get_store_location_list()
     return render_template("shipment/add_shipment.html", products=all_products, store_locations=all_store_locations)
+
+@bp.route('/list/', methods=['GET'])
+def shipment_list():
+    shipment_list = ShipmentService().get_shipment_list()
+    return render_template("shipment/shipment_list.html", shipment_list=shipment_list)
