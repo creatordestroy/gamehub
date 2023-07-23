@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block title %} Product Detail {% endblock %} {%
+block content %}
+<h2 class="text-2xl font-bold mb-2">{{ product.product_name }}</h2>
+<p class="mb-2">
+  <strong>Description:</strong> {{ product.product_description }}
+</p>
+<p class="mb-2"><strong>Cost:</strong> ${{ '%.2f' % product.product_cost }}</p>
+<p class="mb-2">
+  <strong>Discontinued:</strong> {% if product.product_discontinued %}<span
+    class="text-red-500"
+    >Yes</span
+  >{% else %} <span class="text-green-500">No</span>{% endif %}
+</p>
+{% if not product.product_discontinued %}
+<form
+  action="{{ url_for('product.discontinue_product', product_id=product.product_id) }}"
+  method="post"
+>
+  <input
+    type="submit"
+    value="Discontinue Product"
+    class="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer"
+  />
+</form>
+{% endif %}
+<p class="mt-4">
+  <a href="{{ url_for('product.product_list') }}" class="text-blue-500"
+    >Back to Product List</a
+  >
+</p>
+
+{% endblock %}
