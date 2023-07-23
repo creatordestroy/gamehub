@@ -88,3 +88,4 @@ class InventoryService:
                 return [{'message' : 'No product found in store'}], 404
         except Exception as e:
             return {'error' : str(e)}, 500
+

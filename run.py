@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for
 #from app.middlewares import JSONContentTypeMiddleware
+
 from app.routes import inventory, product, reviews, sales, shipment, user
 
 
@@ -9,6 +10,7 @@ def create_app():
     # Register blueprints alpabetically
     app.register_blueprint(inventory.bp, url_prefix='/inventory')
     app.register_blueprint(product.bp, url_prefix='/product')
+
     app.register_blueprint(reviews.bp, url_prefix='/reviews')
     app.register_blueprint(shipment.bp, url_prefix='/shipments')
     app.register_blueprint(sales.bp, url_prefix='/sales')
