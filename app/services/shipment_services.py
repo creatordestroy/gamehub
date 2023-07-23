@@ -2,6 +2,9 @@ from app.models.shipments import Shipments
 from app.services.inventory_services import InventoryService
 
 class ShipmentService:
+    def get_shipment_list(self):
+        return Shipments.select()
+
     def receive_shipment(self, product_id, store_id, shipment_quantity, shipment_date):
         # Create a row for shipments table
         quantity_shipped = int(shipment_quantity)

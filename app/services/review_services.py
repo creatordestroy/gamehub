@@ -6,6 +6,8 @@ from app.database import db
 from peewee import JOIN
 
 class ReviewService:
+    def review_list():
+        return Reviews.select()
 
     def get_all_product_reviews():
         try:
@@ -24,12 +26,12 @@ class ReviewService:
             return {'error': str(e)}, 500
 
     def get_product_reviews_by_id(product_id):
-        
+
         try:
             product_reviews = Reviews.select().where(Reviews.product_id == product_id)
 
             if product_reviews:
-                
+
                 reviews_data = [{
                     'rating' : review.product_rating,
                     'comment' : review.product_review

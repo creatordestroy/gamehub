@@ -4,6 +4,9 @@ from flask import jsonify
 from app.database import db
 
 class InventoryService:
+    def get_inventory_list(self):
+        return Inventory.select()
+
     def create_inventory(self, product_id, store_id, product_quantity):
         inventory = Inventory(product_id=product_id, store_id=store_id, product_quantity=product_quantity)
         inventory.save()
@@ -32,10 +35,10 @@ class InventoryService:
                 return product_details, 200
             else:
                 return {'message' : 'No product found'}, 404
-            
+
         except Exception as e:
             return {'error': str(e)}, 500
-        
+
     def product_search_by_id(product_id):
         try:
             product_name = Product.get(Product.product_id == product_id).product_name
@@ -57,7 +60,7 @@ class InventoryService:
                 return {'message' : 'No product found'}, 404
         except Exception as e:
             return {'error' : str(e)}, 500
-        
+
     def product_search_by_store_id(store_id):
         try:
             product_list = Inventory.select().where(Inventory.store_id == store_id)

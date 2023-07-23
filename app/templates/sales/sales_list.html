@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block title %} Sales List {% endblock %} {% block
+content %}
+<h1 class="text-2xl font-bold mb-4">Sales List</h1>
+<table class="w-full border-collapse border border-gray-500">
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="border border-gray-500 px-4 py-2">Sale ID</th>
+      <th class="border border-gray-500 px-4 py-2">Product</th>
+      <th class="border border-gray-500 px-4 py-2">Store</th>
+      <th class="border border-gray-500 px-4 py-2">Sale Date</th>
+      <th class="border border-gray-500 px-4 py-2">Quantity Sold</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sale in sales %}
+    <tr>
+      <td class="border border-gray-500 px-4 py-2">
+        <a
+          href="{{ url_for('sales.sales_detail', sale_id=sale.sale_id) }}"
+          class="text-blue-500 hover:underline"
+          >{{ sale.sale_id }}</a
+        >
+      </td>
+      <td class="border border-gray-500 px-4 py-2">
+        {{ sale.product_id.product_name }}
+      </td>
+      <td class="border border-gray-500 px-4 py-2">
+        {{ sale.store_id.store_name }}
+      </td>
+      <td class="border border-gray-500 px-4 py-2">{{ sale.sale_date }}</td>
+      <td class="border border-gray-500 px-4 py-2">{{ sale.quantity_sold }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
