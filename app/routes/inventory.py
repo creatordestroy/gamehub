@@ -27,9 +27,29 @@ def get_all_products():
 
 @bp.route('/inventory/search', methods=['GET'])
 def search_product_by_name():
+    
     product_name = request.args.get('name')
     if product_name:
         json_list, status_code = InventoryService.product_search_by_name(product_name)
+        print(json_list)
+
+    return render_template('table_template.html', json_list=json_list), status_code
+
+@bp.route('/inventory/search/<string:product_id>', methods=['GET'])
+def search_product_by_id(product_id):
+
+    if product_id:
+        json_list, status_code = InventoryService.product_search_by_id(product_id)
+        print(json_list)
+
+    return render_template('table_template.html', json_list=json_list), status_code
+
+@bp.route('/inventory/search/store/<int:product_id>+<int:store_id>', methods=['GET'])
+def search_product_by_id_in_store(product_id, store_id):
+
+    if product_id and store_id:
+        json_list, status_code = InventoryService.product_search_by_id_in_store(product_id, store_id)
+        print(f'Product id: {product_id}, Store_id: {store_id}')
         print(json_list)
     #return jsonify(json_list), status_code
     return render_template('table_template.html', json_list=json_list), status_code
