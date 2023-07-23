@@ -5,7 +5,7 @@ from app.models.storeLocation import StoreLocation
 
 class Shipments(db.Model):
 
-    shipment_id = PrimaryKeyField()
+    shipment_id = AutoField()
     store_id = ForeignKeyField(StoreLocation, backref="Shipments")
     product_id = ForeignKeyField(Product, backref="Shipments")
     shipment_date = DateField()
