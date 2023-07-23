@@ -15,7 +15,8 @@ class ReviewService:
 
                 reviews_data = [review.__data__ for review in product_reviews]
 
-                return {'message': 'Successfully retrieved test product', 'product_data': reviews_data}, 200
+                #return {'message': 'Successfully retrieved test product', 'product_data': reviews_data}, 200
+                return reviews_data, 200
             else:
                 return {'message': 'No products found in the inventory'}, 404
 
@@ -35,7 +36,7 @@ class ReviewService:
                 } for review in product_reviews]
                 #reviews_data = [review.product_review for review in product_reviews]
 
-                return {'message': 'Successfully retrieved product reviews', 'product_data': reviews_data}, 200
+                return reviews_data, 200
             else:
                 return {'message': 'No product reviews found in the inventory'}, 404
 
@@ -56,7 +57,7 @@ class ReviewService:
                     'review' : review.product_review
                 } for review in product_reviews]
 
-                return {'message' : 'Successfully retrieved product reviews by name', 'product_data' : reviews_data}, 200
+                return reviews_data, 200
             else:
                 return {'message' : 'No product reviews found for product name'}, 404
 
@@ -78,7 +79,7 @@ class ReviewService:
                     'date' : review.review_date
                 }for review in user_reviews]
 
-                return {'message' : 'Successfully retrieved product reviews by name', 'product_data' : reviews_data}, 200
+                return reviews_data, 200
             else:
                 return {'message' : 'No product reviews found for product name'}, 404
 
