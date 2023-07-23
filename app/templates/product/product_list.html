@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block title %} Product List {% endblock %} {% block
+content %}
+<h2 class="text-center my-8 text-2xl font-bold">Product List</h2>
+<table class="table-auto w-full">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">Product Name</th>
+        <th class="px-4 py-2">Description</th>
+        <th class="px-4 py-2">Cost</th>
+        <th class="px-4 py-2">Discontinued</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td class="border px-4 py-2">
+          <a href="{{ url_for('product.product_detail', product_id=product.product_id) }}" class="text-blue-500 hover:underline">
+            {{ product.product_name }}
+          </a>
+        </td>
+        <td class="border px-4 py-2">{{ product.product_description }}</td>
+        <td class="border px-4 py-2">${{ '%.2f' % product.product_cost }}</td>
+        <td class="border px-4 py-2">{% if product.product_discontinued %}Yes{% else %}No{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
