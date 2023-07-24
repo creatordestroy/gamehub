@@ -8,6 +8,9 @@ from datetime import date
 
 class OrderServices:
 
+    def get_order(self):
+        return ProductOrders.select()
+
     def add_order(self,product_id, store_id,order_status,order_date,order_quantity):
 
         order = ProductOrders(product_id=product_id,store_id=store_id,order_status=order_status,order_date=order_date,order_quantity=order_quantity)
