@@ -1,4 +1,3 @@
-# inventory.py
 from flask import Blueprint, request, jsonify, render_template
 from app.services.inventory_services import InventoryService
 from app.services.store_location_services import StoreLocationService
@@ -37,7 +36,7 @@ def search_by_product_name():
         data = request.form.to_dict(flat=True)
         product_name = data['product_name']
 
-        return redirect(url_for('inventory.display_search_id', product_name = product_name))
+        return redirect(url_for('inventory.display_search_name', product_name = product_name))
 
     return render_template('inventory/inv_search_name.html', product_list=product_list)
 
@@ -58,19 +57,23 @@ def search_by_product_id():
 
 
 #Route for searching for a product in a specific store
-@bp.route('/search/storeid/<int:product_id>+<int:store_id>/', methods=['GET'])
-def search_product_by_id_in_store(product_id, store_id):
+@bp.route('/search/store/', methods=['GET', 'POST'])
+def search_by_product_store():
 
-    if product_id and store_id:
-        json_list, status_code = InventoryService.product_search_by_id_in_store(product_id, store_id)
-        print(f'Product id: {product_id}, Store_id: {store_id}')
-        print(json_list)
-    #return jsonify(json_list), status_code
-    return render_template('inventory/table_template.html', json_list=json_list), status_code
+    product_list = []
 
-@bp.route('/search/results', methods=['GET'])
-def display_search_id():
-    # Retrieve the product_list from the request's query parameters
+    if request.method == 'POST':
+        data = request.form.to_dict(flat=True)
+        product_id = data['product_id']
+        store_id = data['store_id']
+
+        return redirect(url_for('inventory.display_search_store', product_id = product_id, store_id=store_id))
+
+    return render_template('inventory/inv_search_store.html', product_list=product_list)
+
+#Route to display results for search by name
+@bp.route('/search/results/name', methods=['GET'])
+def display_search_name():
     
     product_name = request.args.get('product_name')
 
@@ -79,3 +82,30 @@ def display_search_id():
     product_list = product_list['details']
     
     return render_template('inventory/inv_search_results.html', product_list=product_list, product_cost=product_cost)
+
+#Route to display results for search by ID
+@bp.route('/search/results/id', methods=['GET'])
+def display_search_id():
+    
+    product_id = request.args.get('product_id')
+
+    product_list = InventoryService.search_by_product_id(product_id)
+    product_cost = product_list['cost']
+    product_name = product_list['name']
+    product_list = product_list['details']
+
+    return render_template('inventory/inv_search_results.html', product_list=product_list, product_cost=product_cost, product_name=product_name)
+
+#Route to display results for search by store and by ID
+@bp.route('/search/results/store', methods=['GET'])
+def display_search_store():
+    
+    product_id = request.args.get('product_id')
+    store_id = request.args.get('store_id')
+
+    product_list = InventoryService.search_by_product_store(product_id, store_id)
+    product_cost = product_list['cost']
+    product_name = product_list['name']
+    product_list = product_list['details']
+
+    return render_template('inventory/inv_search_results.html', product_list=product_list, product_cost=product_cost, product_name=product_name)

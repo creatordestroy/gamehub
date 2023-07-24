@@ -54,12 +54,15 @@ class InventoryService:
         try:
             product_status = Inventory.select().where(Inventory.product_id == product_id)
             product_cost = Product.get(Product.product_id == product_id).product_cost
+            product_name = Product.get(Product.product_id == product_id).product_name
             
             if product_status:
                 product_details = {
                     'details' : product_status,
-                    'cost' : product_cost
+                    'cost' : product_cost,
+                    'name' : product_name
                 }
+
                 return product_details
             else:
                 return {'message' : 'No product found'}, 404
@@ -69,17 +72,23 @@ class InventoryService:
 
 
     #Searches for a product by both product id and store id
-    def product_search_by_id_in_store(product_id, store_id):
+    def search_by_product_store(product_id, store_id):
         try:
+            product_status = Inventory.select().where((Inventory.product_id == product_id) & (Inventory.store_id == store_id))
+            product_cost = Product.get(Product.product_id == product_id).product_cost
+            product_name = Product.get(Product.product_id == product_id).product_name
+            
+            if product_status:
+                product_details = {
+                    'details' : product_status,
+                    'cost' : product_cost,
+                    'name' : product_name
+                }
 
-            product_list = Inventory.select().where((Inventory.product_id == product_id) & (Inventory.store_id == store_id))
-            if product_list:
-
-                product_details = [product.__data__ for product in product_list]
-
-                return product_details, 200
+                return product_details
             else:
-                return [{'message' : 'No product found in store'}], 404
+                return {'message' : 'No product found'}, 404
+
         except Exception as e:
-            return {'error' : str(e)}, 500
+            return {'error': str(e)}, 500
 
