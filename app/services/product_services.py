@@ -27,3 +27,15 @@ class ProductService:
             return True
         except Product.DoesNotExist:
             return False
+        
+    def update_price(product_id, product_cost):
+        try:
+            product = Product.get(Product.product_id==product_id)
+            product.product_cost = product_cost
+            product.save()
+
+            return product
+        except Product.DoesNotExist:
+
+            return None
+

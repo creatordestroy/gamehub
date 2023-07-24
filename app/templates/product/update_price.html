@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Update Product
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4">Update Product</h1>
+    <form method="POST" action="{{ url_for('product.update_product_price') }}" class="max-w-md mx-auto mb-4">
+        <div class="mb-4">
+            <label for="product_id" class="block font-medium mb-1">Product ID</label>
+            <input type="text" name="product_id" id="product_id" class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+        </div>
+        <div class="mb-4">
+            <label for="product_cost" class="block font-medium mb-1">Product Cost</label>
+            <input type="text" name="product_cost" id="product_cost" class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200" required>
+        </div>
+        <div class="mb-4">
+            <input type="submit" value="Update" class="w-full px-4 py-2 font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200">
+        </div>
+    </form>
+
+
+{% endblock %}
