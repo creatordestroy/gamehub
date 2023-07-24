@@ -36,3 +36,22 @@ def discontinue_product(product_id):
             return render_template('invalid_product_id.html')
 
     return redirect(url_for('product.product_list'))
+
+@bp.route('/updateprice/', methods=['GET','POST'])
+def update_product_price():
+
+    if request.method == 'POST':
+        data = request.form.to_dict(flat=True)
+        product_cost = data['product_cost']
+        product_id = data['product_id']
+
+        updated_product = ProductService.update_price(product_id,product_cost)
+
+        if updated_product:
+            return redirect(url_for('product.product_list'))
+        else:
+            return "update failed"
+        
+    return render_template('product/update_price.html')
+
+
