@@ -11,8 +11,8 @@ class InventoryService:
         inventory = Inventory(product_id=product_id, store_id=store_id, product_quantity=product_quantity)
         inventory.save()
 
-    def add_inventory(self, product_id, product_name, product_cost, product_quantity):
-        inventory = Inventory(product_id=product_id, product_name=product_name, product_cost=product_cost, product_quantity=product_quantity)
+    def add_inventory(self, product_id, store_id, product_cost, product_quantity):
+        inventory = Inventory(product_id=product_id, store_id=store_id, product_cost=product_cost, product_quantity=product_quantity)
         inventory.save()
 
     def update_product_quantity(self, product_id, store_id, shipment_quantity):

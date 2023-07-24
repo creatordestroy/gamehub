@@ -1,34 +1,41 @@
 # inventory.py
 from flask import Blueprint, request, jsonify, render_template
 from app.services.inventory_services import InventoryService
+from app.services.store_location_services import StoreLocationService
+from app.services.product_services import ProductService
 
 bp = Blueprint('inventory', __name__)
 
+#Test method for inventory route
 @bp.route('/test/', methods=['GET'])
 def test():
     return jsonify({'message': 'Inventory test route'}), 200
 
+#Route for display all current inventory objects in all stores
 @bp.route('/list/', methods=['GET'])
 def inventory_list():
     inventory = InventoryService().get_inventory_list()
     return render_template('inventory/inventory_list.html', inventory=inventory)
 
-@bp.route('/', methods=['POST'])
+#Route to add a new product into inventory
+@bp.route('/add/', methods=['GET','POST'])
 def add_inventory():
-    data = request.get_json()
-    inventory = InventoryService().add_inventory(data['title'], data['platform'], data['count'])
-    return jsonify(inventory), 201
+
+    if request.method == 'POST':
+        data = request.form.to_dict(flat=True)
+        print(data)
+        inventory = InventoryService().add_inventory(data['product_id'], data['store_id'], data['product_cost'], data['product_quantity'])
+        return "success", 201
+    
+    all_stores = StoreLocationService().get_store_location_list()
+    all_products = ProductService().get_product_list()
+    return render_template('inventory/add_inventory.html', store_locations = all_stores, products = all_products)
 
 @bp.route('/<int:inventory_id>/', methods=['PUT'])
 def update_inventory(inventory_id):
-    data = request.get_json()
+    data = request.form.to_dict(flat=True)
     inventory = InventoryService().update_inventory(inventory_id, data['count'])
     return jsonify(inventory), 200
-
-@bp.route('/all/', methods=['GET'])
-def get_all_products():
-    inventory_data, status_code = InventoryService.get_test_product()
-    return jsonify(inventory_data), status_code
 
 @bp.route('/search/', methods=['GET'])
 def search_product_by_name():
