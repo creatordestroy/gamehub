@@ -18,6 +18,15 @@ class ProductService:
             return True
         except Product.DoesNotExist:
             return False
+
+    def out_of_stock_product(self, product_id):
+        try:
+            product = Product.get(Product.product_id == product_id)
+            product.product_out_of_stock = True
+            product.save()
+            return True
+        except Product.DoesNotExist:
+            return False
         
     def update_price(product_id, product_cost):
         try:
@@ -29,5 +38,4 @@ class ProductService:
         except Product.DoesNotExist:
 
             return None
-
 

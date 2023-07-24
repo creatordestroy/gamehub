@@ -11,6 +11,12 @@ block content %}
     >Yes</span
   >{% else %} <span class="text-green-500">No</span>{% endif %}
 </p>
+<p class="mb-2">
+  <strong>Out of Stock:</strong> {% if product.product_out_of_stock %}<span
+    class="text-red-500"
+    >Yes</span
+  >{% else %} <span class="text-green-500">No</span>{% endif %}
+</p>
 {% if not product.product_discontinued %}
 <form
   action="{{ url_for('product.discontinue_product', product_id=product.product_id) }}"
@@ -19,6 +25,19 @@ block content %}
   <input
     type="submit"
     value="Discontinue Product"
+    class="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer"
+  />
+</form>
+{% endif %}
+<br>
+{% if not product.product_out_of_stock %}
+<form
+  action="{{ url_for('product.out_of_stock_product', product_id=product.product_id) }}"
+  method="post"
+>
+  <input
+    type="submit"
+    value="Out of Stock Product"
     class="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer"
   />
 </form>

@@ -8,6 +8,7 @@ content %}
         <th class="px-4 py-2">Description</th>
         <th class="px-4 py-2">Cost</th>
         <th class="px-4 py-2">Discontinued</th>
+        <th class="px-4 py-2">Out of Stock</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@ content %}
         <td class="border px-4 py-2">{{ product.product_description }}</td>
         <td class="border px-4 py-2">${{ '%.2f' % product.product_cost }}</td>
         <td class="border px-4 py-2">{% if product.product_discontinued %}Yes{% else %}No{% endif %}</td>
+        <td class="border px-4 py-2">{% if product.product_out_of_stock %}Yes{% else %}No{% endif %}</td>
       </tr>
       {% endfor %}
     </tbody>
