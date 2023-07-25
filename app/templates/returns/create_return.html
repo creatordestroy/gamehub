@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Create New Return{% endblock %}
+
+{% block content %}
+  <h1 class="text-2xl font-bold mb-4">Create New Return</h1>
+  <form action="{{ url_for('returns.create_return') }}" method="post" class="w-full max-w-sm">
+    <div class="mb-4">
+      <label for="store" class="block text-gray-700 font-bold mb-2">Store:</label>
+      <select name="store_id" id="store" class="form-select block w-full border rounded py-2 px-3">
+        {% for store in stores %}
+        <option value="{{ store.store_id }}">{{ store.store_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-4">
+      <label for="product" class="block text-gray-700 font-bold mb-2">Product:</label>
+      <select name="product_id" id="product" class="form-select block w-full border rounded py-2 px-3">
+        {% for product in products %}
+        <option value="{{ product.product_id }}">{{ product.product_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-4">
+      <label for="return_reason" class="block text-gray-700 font-bold mb-2">Return Reason:</label>
+      <textarea name="return_reason" id="return_reason" rows="4" class="form-textarea block w-full border rounded py-2 px-3"></textarea>
+    </div>
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Create Return
+    </button>
+  </form>
+{% endblock %}
