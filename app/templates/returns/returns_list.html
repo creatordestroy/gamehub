@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}Returns List{% endblock %} {% block
+content %}
+<h1 class="text-2xl font-bold mb-4">Returns List</h1>
+<div class="mb-4">
+  <a
+    href="{{ url_for('returns.create_return') }}"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  >
+    Create New Return
+  </a>
+</div>
+<table class="w-full border-collapse border border-gray-500">
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="border border-gray-500 px-4 py-2">Return ID</th>
+      <th class="border border-gray-500 px-4 py-2">Store</th>
+      <th class="border border-gray-500 px-4 py-2">Product</th>
+      <th class="border border-gray-500 px-4 py-2">Return Date</th>
+      <th class="border border-gray-500 px-4 py-2">Return Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in returns %}
+    <tr>
+      <td class="border border-gray-500 px-4 py-2">
+        <a
+          href="{{ url_for('returns.returns_detail', return_id=item.return_id) }}"
+          >{{ item.return_id }}</a
+        >
+      </td>
+      <td class="border border-gray-500 px-4 py-2">
+        {{ item.store_id.store_name }}
+      </td>
+      <td class="border border-gray-500 px-4 py-2">
+        {{ item.product_id.product_name }}
+      </td>
+      <td class="border border-gray-500 px-4 py-2">{{ item.return_date }}</td>
+      <td class="border border-gray-500 px-4 py-2">{{ item.return_reason }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

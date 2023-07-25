@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %}Return Details{% endblock %} {% block
+content %}
+<h1 class="text-2xl font-bold mb-4">Return Details</h1>
+<div>
+  <p><strong>Return ID:</strong> {{ returns.return_id }}</p>
+  <p><strong>Store:</strong> {{ returns.store_id.store_name }}</p>
+  <p><strong>Product:</strong> {{ returns.product_id.product_name }}</p>
+  <p><strong>Return Date:</strong> {{ returns.return_date }}</p>
+  <p><strong>Return Reason:</strong> {{ returns.return_reason }}</p>
+</div>
+<p class="mt-4">
+  <a href="{{ url_for('returns.returns_list') }}" class="text-blue-500"
+    >Back to Return List</a
+  >
+</p>
+{% endblock %}
