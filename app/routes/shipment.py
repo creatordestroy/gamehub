@@ -1,5 +1,5 @@
 from datetime import date
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from app.services.shipment_services import ShipmentService
 from app.services.product_services import ProductService
 from app.services.store_location_services import StoreLocationService
@@ -12,7 +12,7 @@ def add_shipment():
         data = request.form.to_dict(flat=True)
         shipment_date = date.today().strftime("%Y-%m-%d")
         shipment = ShipmentService().receive_shipment(data['product_id'], data['store_location'], data['shipment_quantity'], shipment_date)
-        return "success", 201
+        return redirect(url_for('shipment.shipment_list'))
 
     all_products = ProductService().get_product_list()
     all_store_locations = StoreLocationService().get_store_location_list()
